@@ -14,8 +14,10 @@ client.on :hello do
 end
 
 client.on :message do |data|
-  p "Got message : #{data['text']}"
-  Polly.instance.speech(data['text'])
+  puts "Got message : #{data['text']}"
+  # 引用を削除
+  message = data['text'].gsub(/`+[^`]+`+/m,'')
+  Polly.instance.speech(message)
 end
 
 client.start!
